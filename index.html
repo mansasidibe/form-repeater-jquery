@@ -1,0 +1,74 @@
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+		integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+	</script>
+	<style>
+		.entry:not(:first-of-type) {
+			margin-top: 10px;
+		}
+
+		.glyphicon {
+			font-size: 12px;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<h1>Compétence individuelle</h1>
+		</div>
+		<div class="row">
+			<label class="control-label" for="ourField">Veuillez remplir les champs</label><br>
+			<form role="form">
+				<div id="myRepeatingFields">
+					<div class="entry input-group col-xs-3">
+						<label for="nom" class="form-label">Nom</label>
+						<input class="form-control" name="nom" type="text" placeholder="Nom" />
+					</div>
+					<div class="entry input-group col-xs-3">
+						<label for="prenom" class="form-label">Prénom</label>
+						<input class="form-control" name="prenom" type="text" placeholder="Prénom" />
+					</div> <br>
+					<label for="prenom" class="form-label">Compétences</label>
+					<div class="entry input-group col-xs-3">
+						<input class="form-control" name="fields[]" type="text" placeholder="HTML, jQuery, Sass..." />
+						<span class="input-group-btn">
+							<button type="button" class="btn btn-success btn-lg btn-add">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</span>
+					</div>
+				</div>
+			</form>
+			<br>
+		</div>
+	</div>
+	<script>
+		$(function () {
+			$(document).on('click', '.btn-add', function (e) {
+				e.preventDefault();
+				var controlForm = $('#myRepeatingFields:first'),
+					currentEntry = $(this).parents('.entry:first'),
+					newEntry = $(currentEntry.clone()).appendTo(controlForm);
+				newEntry.find('input').val('');
+				controlForm.find('.entry:not(:last) .btn-add')
+					.removeClass('btn-add').addClass('btn-remove')
+					.removeClass('btn-success').addClass('btn-danger')
+					.html('<span class="glyphicon glyphicon-minus"></span>');
+			}).on('click', '.btn-remove', function (e) {
+				e.preventDefault();
+				$(this).parents('.entry:first').remove();
+				return false;
+			});
+		});
+	</script>
+</body>
+
+</html>
